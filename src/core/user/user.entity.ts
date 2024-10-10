@@ -11,6 +11,6 @@ export class User {
   name: string;
   @Column({ select: false })
   password: string;
-  @OneToMany(() => Store, (store) => store.owner)
+  @OneToMany(() => Store, (store) => store.owner, { onDelete: 'CASCADE' })
   stores: Array<Store>;
 }
