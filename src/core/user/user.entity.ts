@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Store } from 'src/store/store.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -10,4 +11,6 @@ export class User {
   name: string;
   @Column({ select: false })
   password: string;
+  @OneToMany(() => Store, (store) => store.owner)
+  stores: Array<Store>;
 }

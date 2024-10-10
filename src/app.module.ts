@@ -6,18 +6,21 @@ import databaseConfig from './config/database.config';
 import { DatabaseModule } from './database/database.module';
 import { CoreModule } from './core/core.module';
 import { EncryptionModule } from './encryption/encryption.module';
-import jwt_secretConfig from './config/jwt_secret.config';
+import { StoreModule } from './store/store.module';
+
+import jwtConfig from './config/jwt.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-      load: [databaseConfig, jwt_secretConfig],
+      load: [databaseConfig, jwtConfig],
     }),
     DatabaseModule,
     EncryptionModule,
     CoreModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

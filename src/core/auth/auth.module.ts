@@ -15,7 +15,7 @@ import { EncryptionModule } from 'src/encryption/encryption.module';
       global: true,
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('jwt_secret.key'),
+        secret: configService.get<string>('jwt.key'),
       }),
     }),
   ],

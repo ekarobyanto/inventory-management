@@ -1,0 +1,1 @@
+export const STORE_REPOSITORY = 'STORE_REPOSITORY';
