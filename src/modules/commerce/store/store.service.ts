@@ -24,7 +24,7 @@ export class StoreService {
   async getStoreById(storeId: number): Promise<Store> {
     return this.storeRepository.findOne({
       where: { id: storeId },
-      relations: ['owner'],
+      relations: ['owner', 'products', 'categories'],
     });
   }
 
@@ -62,7 +62,6 @@ export class StoreService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return store;
   }
 
   async validateStoreOwnership(storeId: number, userId: number) {
@@ -72,6 +71,14 @@ export class StoreService {
         "User doesn't own the store",
         HttpStatus.BAD_REQUEST,
       );
+    }
+    return store;
+  }
+
+  async validateStoreExist(storeId: number) {
+    const store = await this.getStoreById(storeId);
+    if (!store) {
+      throw new HttpException('Store not found', HttpStatus.NOT_FOUND);
     }
     return store;
   }

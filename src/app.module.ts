@@ -3,12 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
-import { DatabaseModule } from './database/database.module';
-import { CoreModule } from './core/core.module';
-import { EncryptionModule } from './encryption/encryption.module';
-import { StoreModule } from './store/store.module';
-
+import { DatabaseModule } from './modules/database/database.module';
+import { CoreModule } from './modules/core/core.module';
+import { EncryptionModule } from './modules/encryption/encryption.module';
 import jwtConfig from './config/jwt.config';
+import { CommerceModule } from './modules/commerce/commerce.module';
 
 @Module({
   imports: [
@@ -20,7 +19,7 @@ import jwtConfig from './config/jwt.config';
     DatabaseModule,
     EncryptionModule,
     CoreModule,
-    StoreModule,
+    CommerceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

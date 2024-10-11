@@ -6,8 +6,8 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/core/user/user.entity';
-import { UserService } from 'src/core/user/user.service';
+import { User } from 'src/modules/core/user/user.entity';
+import { UserService } from 'src/modules/core/user/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const bearerToken: string = request.headers.authorization;
 
-    if (!bearerToken.startsWith('Bearer ')) {
+    if (!bearerToken || !bearerToken.startsWith('Bearer ')) {
       throw new HttpException(
         'Bearer token not found',
         HttpStatus.UNAUTHORIZED,

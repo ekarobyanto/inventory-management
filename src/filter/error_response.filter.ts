@@ -26,6 +26,7 @@ export class GlobalErrorFilter implements ExceptionFilter {
       res,
       HttpStatus.INTERNAL_SERVER_ERROR,
       'Internal Server Error',
+      exception,
     );
     return;
   }

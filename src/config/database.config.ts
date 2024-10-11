@@ -7,4 +7,5 @@ export default registerAs('database', () => ({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   synchronize: true,
+  entities: [__dirname + '/**/*.entity.ts'],
 }));

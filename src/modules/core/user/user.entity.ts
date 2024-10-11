@@ -1,4 +1,4 @@
-import { Store } from 'src/store/store.entity';
+import { Store } from 'src/modules/commerce/store/store.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')

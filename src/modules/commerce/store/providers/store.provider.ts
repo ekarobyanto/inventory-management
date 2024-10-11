@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common';
-import { DB_CONN } from 'src/database/database.constants';
+import { DB_CONN } from 'src/modules/database/database.constants';
 import { STORE_REPOSITORY } from '../store.constant';
 import { DataSource } from 'typeorm';
 import { Store } from '../store.entity';

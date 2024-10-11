@@ -16,8 +16,10 @@ import {
 import { StoreService } from './store.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { responseWriter } from 'src/utils/response_writer.util';
-import { User } from 'src/core/user/user.entity';
+import { User } from 'src/modules/core/user/user.entity';
 import { CreateStoreDto } from './dtos/create_store.dto';
+import { StoreOwnershipGuard } from 'src/guards/store_ownership.guard';
+import { CreateCategoryDto } from '../dtos/create_category.dto';
 
 @Controller('stores')
 @UseGuards(AuthGuard)
@@ -61,6 +63,20 @@ export class StoreController {
       'store created successfully',
     );
   }
+  @Post(':id/category')
+  async createCategory(
+    @Res() res,
+    @Req() req,
+    @Body() reqBody: CreateCategoryDto,
+  ) {
+    const user: User = req.user;
+    await this.storeService.createStore(reqBody, user.id);
+    return responseWriter(
+      res,
+      HttpStatus.CREATED,
+      'store created successfully',
+    );
+  }
 
   @Get(':id')
   async getStoreById(@Res() res, @Param('id') id: number) {
@@ -77,6 +93,7 @@ export class StoreController {
   }
 
   @Put(':id')
+  @UseGuards(StoreOwnershipGuard)
   async updateStore(
     @Res() res,
     @Req() req,
@@ -92,6 +109,7 @@ export class StoreController {
     );
   }
   @Delete(':id')
+  @UseGuards(StoreOwnershipGuard)
   async deleteStore(@Res() res, @Req() req, @Param('id') id: number) {
     const user: User = req.user;
     await this.storeService.deleteStore(id, user.id);
