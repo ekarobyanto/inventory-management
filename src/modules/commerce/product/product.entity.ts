@@ -19,7 +19,9 @@ export class Product {
   @Column()
   quantity: number;
   @JoinColumn({ name: 'store_id' })
-  @ManyToOne(() => Store, (store) => store.products)
+  @ManyToOne(() => Store, (store) => store.products, {
+    onDelete: 'CASCADE',
+  })
   store: Store;
   @ManyToMany(() => Category, (category) => category.products)
   @JoinTable({

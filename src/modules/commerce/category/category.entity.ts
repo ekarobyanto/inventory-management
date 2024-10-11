@@ -16,7 +16,9 @@ export class Category {
   @Column()
   name: string;
   @JoinColumn({ name: 'store_id' })
-  @ManyToOne(() => Store, (store) => store.categories)
+  @ManyToOne(() => Store, (store) => store.categories, {
+    onDelete: 'CASCADE',
+  })
   store: Store;
   @ManyToMany(() => Product, (product) => product.categories)
   products: Array<Product>;
