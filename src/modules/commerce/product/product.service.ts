@@ -30,7 +30,7 @@ export class ProductService {
   async getProductById(productId: number) {
     return await this.productRepository.findOne({
       where: { id: productId },
-      relations: ['categories', 'store'],
+      relations: ['categories', 'store', 'store.owner'],
     });
   }
 
@@ -65,8 +65,9 @@ export class ProductService {
 
     return await this.productRepository.save({
       ...product,
-      name: updateProduct.name,
-      categories: updateProduct.categories?.map((id) => ({ id })) ?? [],
+      ...updateProduct,
+      categories:
+        updateProduct?.categories?.map((id) => ({ id })) ?? product.categories,
     });
   }
 

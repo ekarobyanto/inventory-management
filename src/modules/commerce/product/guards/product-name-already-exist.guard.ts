@@ -9,7 +9,7 @@ import {
 import { ProductService } from '../product.service';
 
 @Injectable()
-export class ProductNameAlreadyExist implements CanActivate {
+export class ProductNameAlreadyExistGuard implements CanActivate {
   constructor(private readonly productService: ProductService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -19,7 +19,7 @@ export class ProductNameAlreadyExist implements CanActivate {
       store_id,
       name,
     );
-    console.log(product);
+
     if (product) {
       throw new HttpException(
         'Product with this name already exist in store',

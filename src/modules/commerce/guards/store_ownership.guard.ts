@@ -17,6 +17,7 @@ export class StoreOwnershipGuard implements CanActivate {
     const { storeId } = request.params;
     const { store_id } = request.body;
     const stores = await this.storeService.getStoresByOwnerId(user.id);
+
     if (stores.length === 0) {
       throw new HttpException(
         'This user does not own any store',

@@ -6,6 +6,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { StoreService } from '../store/store.service';
+import { Store } from '../store/store.entity';
 
 @Injectable()
 export class CategoriesInStoreGuard implements CanActivate {
@@ -13,7 +14,10 @@ export class CategoriesInStoreGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const { store_id, categories } = request.body;
-    const store = await this.storeService.getStoreById(store_id);
+    const storeFromRequest: Store = request.store;
+    const store = await this.storeService.getStoreById(
+      store_id || storeFromRequest.id,
+    );
     if (!categories || categories.length === 0) {
       return true;
     }

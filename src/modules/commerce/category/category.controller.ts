@@ -21,7 +21,7 @@ import { StoreOwnershipGuard } from '../guards/store_ownership.guard';
 import { CreateCategoryDto } from './dtos/create_category.dto';
 import { Store } from '../store/store.entity';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
-import { StoreCategoryGuard } from '../guards/store_category.guard';
+import { StoreCategoryGuard } from './guards/store_category.guard';
 
 @Controller('categories')
 @UseGuards(AuthGuard)
