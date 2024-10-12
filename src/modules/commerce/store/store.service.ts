@@ -18,6 +18,7 @@ export class StoreService {
   async getStoresByOwnerId(ownerId: number): Promise<Array<Store>> {
     return await this.storeRepository.find({
       where: { owner: { id: ownerId } },
+      relations: ['products', 'categories'],
     });
   }
 
