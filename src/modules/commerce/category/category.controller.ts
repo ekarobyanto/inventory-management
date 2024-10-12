@@ -18,9 +18,9 @@ import { CategoryService } from './category.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { responseWriter } from 'src/utils/response_writer.util';
 import { StoreOwnershipGuard } from '../guards/store_ownership.guard';
-import { CreateCategoryDto } from '../dtos/create_category.dto';
+import { CreateCategoryDto } from './dtos/create_category.dto';
 import { Store } from '../store/store.entity';
-import { UpdateCategoryDto } from '../dtos/update-category.dto';
+import { UpdateCategoryDto } from './dtos/update-category.dto';
 import { StoreCategoryGuard } from '../guards/store_category.guard';
 
 @Controller('categories')
