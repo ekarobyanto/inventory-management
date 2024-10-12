@@ -14,7 +14,7 @@ import { Store } from '../store/store.entity';
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column({ unique: true })
   name: string;
   @Column()
   quantity: number;

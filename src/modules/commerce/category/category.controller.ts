@@ -75,11 +75,11 @@ export class CategoryController {
     );
   }
 
-  @Put(':id')
+  @Put(':categoryId')
   @UseGuards(StoreCategoryGuard)
   async updateCategory(
     @Res() res,
-    @Param('id') categoryId: number,
+    @Param('categoryId') categoryId: number,
     @Body() categoryDto: UpdateCategoryDto,
   ) {
     await this.categoryService.updateCategory(categoryId, categoryDto);
@@ -90,9 +90,9 @@ export class CategoryController {
     );
   }
 
-  @Delete(':id')
+  @Delete(':categoryId')
   @UseGuards(StoreCategoryGuard)
-  async deleteCategory(@Res() res, @Param('id') categoryId: number) {
+  async deleteCategory(@Res() res, @Param('categoryId') categoryId: number) {
     await this.categoryService.deleteCategory(categoryId);
     return responseWriter(
       res,

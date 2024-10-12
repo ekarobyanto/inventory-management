@@ -16,10 +16,10 @@ export class StoreCategoryGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user: User = request.user;
-    const { id } = request.params;
+    const { categoryId } = request.params;
     const categories = await this.categoryService.getCategoryByUserId(
       user.id,
-      id,
+      categoryId,
     );
     if (categories.length === 0) {
       throw new HttpException(

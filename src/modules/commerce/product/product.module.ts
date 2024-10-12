@@ -8,9 +8,11 @@ import { DataSource } from 'typeorm';
 import { Product } from './product.entity';
 import { PRODUCT_REPOSITORY } from './product.contant';
 import { ProductController } from './product.controller';
+import { CategoryModule } from '../category/category.module';
 
 @Module({
-  imports: [CoreModule, DatabaseModule, StoreModule],
+  imports: [CoreModule, DatabaseModule, StoreModule, CategoryModule],
+  exports: [ProductService],
   providers: [
     ProductService,
     {

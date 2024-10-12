@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PRODUCT_REPOSITORY } from './product.contant';
 import { Repository } from 'typeorm';
 import { Product } from './product.entity';
@@ -21,8 +21,17 @@ export class ProductService {
     });
   }
 
+  async getProductByNameInStore(storeId: number, name: string) {
+    return await this.productRepository.findOne({
+      where: { store: { id: storeId }, name },
+    });
+  }
+
   async getProductById(productId: number) {
-    return await this.productRepository.findOne({ where: { id: productId } });
+    return await this.productRepository.findOne({
+      where: { id: productId },
+      relations: ['categories', 'store'],
+    });
   }
 
   async getProductsByStore(storeId: number) {
@@ -42,7 +51,8 @@ export class ProductService {
     const product = this.productRepository.create({
       name: createProduct.name,
       store: { id: createProduct.store_id },
-      categories: createProduct.categories.map((id) => ({ id })),
+      quantity: createProduct.quantity ?? 0,
+      categories: createProduct.categories?.map((id) => ({ id })) ?? [],
     });
     return await this.productRepository.save(product);
   }
@@ -52,14 +62,11 @@ export class ProductService {
       where: { id: productId },
       relations: ['categories'],
     });
-    if (!product) {
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
-    }
 
     return await this.productRepository.save({
       ...product,
       name: updateProduct.name,
-      categories: updateProduct.categories.map((id) => ({ id })),
+      categories: updateProduct.categories?.map((id) => ({ id })) ?? [],
     });
   }
 
