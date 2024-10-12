@@ -17,6 +17,7 @@ import { Response } from 'express';
 import { UpdateUserDto } from './dto/update_user.dto';
 import { responseWriter } from 'src/utils/response_writer.util';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { User } from './user.entity';
 
 @Controller('users')
 @UseGuards(AuthGuard)
@@ -69,14 +70,23 @@ export class UserController {
     throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }
 
-  @Put(':id')
+  @Put()
   async updateUser(
+    @Req() req,
     @Res() res: Response,
-    @Param('id') id: string,
     @Body() requestBody: UpdateUserDto,
   ) {
-    await this.userService.updateUser(Number(id), requestBody);
-    return responseWriter(res, HttpStatus.OK, 'user updated successfully');
+    try {
+      const user: User = req.user;
+      await this.userService.updateUser(user.id, requestBody);
+      return responseWriter(res, HttpStatus.OK, 'user updated successfully');
+    } catch (err) {
+      throw new HttpException(
+        'Error updating user',
+        HttpStatus.BAD_REQUEST,
+        err,
+      );
+    }
   }
 
   @Delete(':id')

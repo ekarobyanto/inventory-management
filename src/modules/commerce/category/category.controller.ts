@@ -8,6 +8,8 @@ import {
   Inject,
   Param,
   Post,
+  Put,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -15,9 +17,11 @@ import {
 import { CategoryService } from './category.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { responseWriter } from 'src/utils/response_writer.util';
-import { StoreOwnershipGuard } from '../store/guards/store_ownership.guard';
+import { StoreOwnershipGuard } from '../guards/store_ownership.guard';
 import { CreateCategoryDto } from '../dtos/create_category.dto';
 import { Store } from '../store/store.entity';
+import { UpdateCategoryDto } from '../dtos/update-category.dto';
+import { StoreCategoryGuard } from '../guards/store_category.guard';
 
 @Controller('categories')
 @UseGuards(AuthGuard)
@@ -28,8 +32,11 @@ export class CategoryController {
   ) {}
 
   @Get()
-  async getCategories(@Res() res) {
-    const categories = await this.categoryService.getCategories();
+  async getCategories(@Res() res, @Query('store_id') storeId: number) {
+    const categories = await this.categoryService.getCategories(storeId);
+    if (categories.length === 0) {
+      throw new HttpException('No categories found', HttpStatus.NOT_FOUND);
+    }
     return responseWriter(
       res,
       HttpStatus.OK,
@@ -68,7 +75,23 @@ export class CategoryController {
     );
   }
 
+  @Put(':id')
+  @UseGuards(StoreCategoryGuard)
+  async updateCategory(
+    @Res() res,
+    @Param('id') categoryId: number,
+    @Body() categoryDto: UpdateCategoryDto,
+  ) {
+    await this.categoryService.updateCategory(categoryId, categoryDto);
+    return responseWriter(
+      res,
+      HttpStatus.CREATED,
+      'Category updated successfully',
+    );
+  }
+
   @Delete(':id')
+  @UseGuards(StoreCategoryGuard)
   async deleteCategory(@Res() res, @Param('id') categoryId: number) {
     await this.categoryService.deleteCategory(categoryId);
     return responseWriter(

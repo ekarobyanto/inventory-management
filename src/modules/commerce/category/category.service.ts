@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Category } from './category.entity';
 import { CreateCategoryDto } from '../dtos/create_category.dto';
 import { Store } from '../store/store.entity';
+import { UpdateCategoryDto } from '../dtos/update-category.dto';
 
 @Injectable()
 export class CategoryService {
@@ -12,8 +13,8 @@ export class CategoryService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  async getCategories() {
-    return this.categoryRepository.find();
+  async getCategories(storeId?: number) {
+    return this.categoryRepository.find({ where: { store: { id: storeId } } });
   }
 
   async getCategoryById(categoryId: number) {
@@ -23,8 +24,18 @@ export class CategoryService {
     });
   }
 
-  async getStoreCategories(storeId: number) {
-    return this.categoryRepository.find({ where: { store: { id: storeId } } });
+  async getCategoryByUserId(userId: number, categoryId?: number) {
+    const query = this.categoryRepository
+      .createQueryBuilder('category')
+      .innerJoin('category.store', 'store')
+      .innerJoin('store.owner', 'user')
+      .where('user.id = :userId', { userId });
+
+    if (categoryId) {
+      query.andWhere('category.id = :categoryId', { categoryId });
+    }
+
+    return await query.select(['category.id', 'category.name']).getMany();
   }
 
   async createCategory(createCategory: CreateCategoryDto, store: Store) {
@@ -34,6 +45,10 @@ export class CategoryService {
       store: store,
     });
     return this.categoryRepository.save(category);
+  }
+
+  async updateCategory(categoryid: number, updateCategory: UpdateCategoryDto) {
+    await this.categoryRepository.update({ id: categoryid }, updateCategory);
   }
 
   async deleteCategory(categoryId: number) {

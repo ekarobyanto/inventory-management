@@ -18,7 +18,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { responseWriter } from 'src/utils/response_writer.util';
 import { User } from 'src/modules/core/user/user.entity';
 import { CreateStoreDto } from './dtos/create_store.dto';
-import { StoreOwnershipGuard } from 'src/modules/commerce/store/guards/store_ownership.guard';
+import { StoreOwnershipGuard } from 'src/modules/commerce/guards/store_ownership.guard';
 
 @Controller('stores')
 @UseGuards(AuthGuard)
@@ -42,7 +42,6 @@ export class StoreController {
   @Get('/owner')
   async getOwnedStores(@Res() res, @Req() req) {
     const user: User = req.user;
-
     const stores = await this.storeService.getStoresByOwnerId(user.id);
     return responseWriter(
       res,

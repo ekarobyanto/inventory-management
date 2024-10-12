@@ -16,20 +16,26 @@ export class StoreOwnershipGuard implements CanActivate {
     const user: User = request.user;
     const { storeId } = request.params;
     const { store_id } = request.body;
-    const store = await this.storeService.getStoreById(storeId || store_id);
-    if (!store) {
-      throw new HttpException('Store not found', HttpStatus.NOT_FOUND);
+    const stores = await this.storeService.getStoresByOwnerId(user.id);
+    if (stores.length === 0) {
+      throw new HttpException(
+        'This user does not own any store',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
-    if (store.owner.id !== user.id) {
+    const store = stores.find(
+      (store) => store.id === +storeId || store.id === +store_id,
+    );
+
+    if (!store) {
       throw new HttpException(
-        'User is not the owner of this store',
+        'Invalid Store ID provided',
         HttpStatus.BAD_REQUEST,
       );
     }
 
     request.store = store;
-
     return true;
   }
 }

@@ -45,7 +45,9 @@ export class UserService {
   }
 
   async updateUser(userId: number, user: UpdateUserDto) {
-    await this.checkIfCredentialExist(user);
+    await this.checkIfCredentialExist({
+      ...user,
+    });
     await this.userRepository.update({ id: userId }, user);
   }
   async updateUserPassword(userId: number, password: string) {
@@ -60,11 +62,10 @@ export class UserService {
     await this.userRepository.delete(userId);
   }
 
-  async checkIfCredentialExist(requestBody: { email: string; name: string }) {
-    const existingUser = await this.userRepository.findOneBy([
-      { name: requestBody.name },
-      { email: requestBody.email },
-    ]);
+  async checkIfCredentialExist(requestBody: { email?: string; name?: string }) {
+    const existingUser = await this.userRepository.findOneBy({
+      ...requestBody,
+    });
 
     if (existingUser && existingUser.email === requestBody.email) {
       throw new HttpException(

@@ -28,6 +28,10 @@ export class StoreService {
     });
   }
 
+  async getStoreByProperty(store: Partial<Store>) {
+    return this.storeRepository.findOneBy(store);
+  }
+
   async getStoreByProperties(storeProperties: Partial<Store>): Promise<Store> {
     return this.storeRepository.findOneBy(storeProperties);
   }
