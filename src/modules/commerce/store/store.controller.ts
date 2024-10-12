@@ -18,8 +18,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { responseWriter } from 'src/utils/response_writer.util';
 import { User } from 'src/modules/core/user/user.entity';
 import { CreateStoreDto } from './dtos/create_store.dto';
-import { StoreOwnershipGuard } from 'src/guards/store_ownership.guard';
-import { CreateCategoryDto } from '../dtos/create_category.dto';
+import { StoreOwnershipGuard } from 'src/modules/commerce/store/guards/store_ownership.guard';
 
 @Controller('stores')
 @UseGuards(AuthGuard)
@@ -41,7 +40,7 @@ export class StoreController {
   }
 
   @Get('/owner')
-  async getStoresByOwner(@Res() res, @Req() req) {
+  async getOwnedStores(@Res() res, @Req() req) {
     const user: User = req.user;
 
     const stores = await this.storeService.getStoresByOwnerId(user.id);
@@ -54,21 +53,7 @@ export class StoreController {
   }
 
   @Post()
-  async createStore(@Res() res, @Body() reqBody: CreateStoreDto, @Req() req) {
-    const user: User = req.user;
-    await this.storeService.createStore(reqBody, user.id);
-    return responseWriter(
-      res,
-      HttpStatus.CREATED,
-      'store created successfully',
-    );
-  }
-  @Post(':id/category')
-  async createCategory(
-    @Res() res,
-    @Req() req,
-    @Body() reqBody: CreateCategoryDto,
-  ) {
+  async createStore(@Res() res, @Req() req, @Body() reqBody: CreateStoreDto) {
     const user: User = req.user;
     await this.storeService.createStore(reqBody, user.id);
     return responseWriter(
@@ -87,32 +72,30 @@ export class StoreController {
     return responseWriter(
       res,
       HttpStatus.OK,
-      'store retrieved successfully',
+      'Store retrieved successfully',
       store,
     );
   }
 
-  @Put(':id')
+  @Put(':storeId')
   @UseGuards(StoreOwnershipGuard)
   async updateStore(
     @Res() res,
-    @Req() req,
-    @Body() reqBody: CreateStoreDto,
-    @Param('id') id: number,
+    @Body() body: CreateStoreDto,
+    @Param('storeId') id: number,
   ) {
-    const user: User = req.user;
-    await this.storeService.updateStore(id, user.id, reqBody);
+    await this.storeService.updateStore(id, body);
     return responseWriter(
       res,
       HttpStatus.CREATED,
       'store updated successfully',
     );
   }
-  @Delete(':id')
+
+  @Delete(':storeId')
   @UseGuards(StoreOwnershipGuard)
-  async deleteStore(@Res() res, @Req() req, @Param('id') id: number) {
-    const user: User = req.user;
-    await this.storeService.deleteStore(id, user.id);
+  async deleteStore(@Res() res, @Param('storeId') id: number) {
+    await this.storeService.deleteStore(id);
     return responseWriter(
       res,
       HttpStatus.CREATED,

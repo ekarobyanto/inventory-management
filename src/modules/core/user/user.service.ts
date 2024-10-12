@@ -19,7 +19,10 @@ export class UserService {
     return this.userRepository.find();
   }
   async getUserById(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id: id });
+    return this.userRepository.findOne({
+      where: { id },
+      relations: ['stores'],
+    });
   }
   async getUserByProperties(userProperties: Partial<User>): Promise<User> {
     return this.userRepository.findOneBy(userProperties);

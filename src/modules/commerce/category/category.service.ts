@@ -27,10 +27,6 @@ export class CategoryService {
     return this.categoryRepository.find({ where: { store: { id: storeId } } });
   }
 
-  async getCategoryByName(categoryDto: CreateCategoryDto) {
-    return await this.categoryRepository.findOneBy({ name: categoryDto.name });
-  }
-
   async createCategory(createCategory: CreateCategoryDto, store: Store) {
     await this.validateCategoryNameExist(createCategory);
     const category = this.categoryRepository.create({
@@ -41,15 +37,15 @@ export class CategoryService {
   }
 
   async deleteCategory(categoryId: number) {
-    const category = await this.validateCategoryExist(categoryId);
-    if (!category) {
-      throw new HttpException('Category does not exist', HttpStatus.NOT_FOUND);
-    }
+    await this.validateCategoryExist(categoryId);
     return await this.categoryRepository.delete(categoryId);
   }
 
   async validateCategoryNameExist(categoryDto: CreateCategoryDto) {
-    const category = await this.getCategoryByName(categoryDto);
+    const category = await this.categoryRepository.findOneBy({
+      name: categoryDto.name,
+      store: { id: categoryDto.store_id },
+    });
     if (category) {
       throw new HttpException(
         'Category with this name already exist',

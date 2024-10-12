@@ -4,12 +4,11 @@ import { StoreService } from './store.service';
 import { storeProvider } from './providers/store.provider';
 import { DatabaseModule } from 'src/modules/database/database.module';
 import { CoreModule } from 'src/modules/core/core.module';
-import { CategoryModule } from '../category/category.module';
 
 @Module({
-  imports: [DatabaseModule, CoreModule, CategoryModule],
-  exports: [StoreService],
+  imports: [DatabaseModule, CoreModule],
   providers: [StoreService, ...storeProvider],
   controllers: [StoreController],
+  exports: [StoreService],
 })
 export class StoreModule {}

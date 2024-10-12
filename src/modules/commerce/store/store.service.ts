@@ -41,15 +41,13 @@ export class StoreService {
     return await this.storeRepository.save(store);
   }
 
-  async updateStore(storeId: number, userId: number, store: CreateStoreDto) {
-    await this.validateStoreOwnership(storeId, userId);
+  async updateStore(storeId: number, store: CreateStoreDto) {
     await this.validateStoreCredentialExist(store);
     return this.storeRepository.update({ id: storeId }, { ...store });
   }
 
-  async deleteStore(storeId: number, userId: number) {
-    await this.validateStoreOwnership(storeId, userId);
-    return this.storeRepository.delete(storeId);
+  async deleteStore(storeId: number) {
+    return await this.storeRepository.delete({ id: storeId });
   }
 
   async validateStoreCredentialExist(storeDto: CreateStoreDto) {
@@ -62,24 +60,5 @@ export class StoreService {
         HttpStatus.BAD_REQUEST,
       );
     }
-  }
-
-  async validateStoreOwnership(storeId: number, userId: number) {
-    const store = await this.getStoreById(storeId);
-    if (!store || store.owner.id !== userId) {
-      throw new HttpException(
-        "User doesn't own the store",
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-    return store;
-  }
-
-  async validateStoreExist(storeId: number) {
-    const store = await this.getStoreById(storeId);
-    if (!store) {
-      throw new HttpException('Store not found', HttpStatus.NOT_FOUND);
-    }
-    return store;
   }
 }

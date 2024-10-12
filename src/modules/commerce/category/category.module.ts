@@ -7,9 +7,10 @@ import { Category } from './category.entity';
 import { CategoryController } from './category.controller';
 import { CoreModule } from 'src/modules/core/core.module';
 import { CategoryService } from './category.service';
+import { StoreModule } from '../store/store.module';
 
 @Module({
-  imports: [DatabaseModule, CoreModule],
+  imports: [DatabaseModule, CoreModule, StoreModule],
   providers: [
     CategoryService,
     {
@@ -20,5 +21,6 @@ import { CategoryService } from './category.service';
     },
   ],
   controllers: [CategoryController],
+  exports: [CategoryService],
 })
 export class CategoryModule {}
