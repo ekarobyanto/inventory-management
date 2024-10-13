@@ -6,6 +6,10 @@ import { AppModule } from './../src/app.module';
 describe('Auth (e2e)', () => {
   let app: INestApplication;
   let token: string;
+  const loginCredential = {
+    email: 'your@email.com',
+    password: '123456',
+  };
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -25,20 +29,14 @@ describe('Auth (e2e)', () => {
   it('/auth/login - should 200 OK with correct user credential', async () => {
     await request(app.getHttpServer())
       .post('/auth/login')
-      .send({
-        email: 'robyantoeka@gmail.com',
-        password: '123456',
-      })
+      .send(loginCredential)
       .expect(HttpStatus.OK);
   });
 
   it('/auth/login - should return JWT token', async () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
-      .send({
-        email: 'robyantoeka@gmail.com',
-        password: '123456',
-      });
+      .send(loginCredential);
     expect(response.body.data).toHaveProperty('access_token');
     token = response.body.data.access_token;
     console.log(token);
