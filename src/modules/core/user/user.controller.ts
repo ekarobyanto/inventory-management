@@ -76,17 +76,9 @@ export class UserController {
     @Res() res: Response,
     @Body() requestBody: UpdateUserDto,
   ) {
-    try {
-      const user: User = req.user;
-      await this.userService.updateUser(user.id, requestBody);
-      return responseWriter(res, HttpStatus.OK, 'user updated successfully');
-    } catch (err) {
-      throw new HttpException(
-        'Error updating user',
-        HttpStatus.BAD_REQUEST,
-        err,
-      );
-    }
+    const user: User = req.user;
+    await this.userService.updateUser(user.id, requestBody);
+    return responseWriter(res, HttpStatus.OK, 'user updated successfully');
   }
 
   @Delete(':id')
