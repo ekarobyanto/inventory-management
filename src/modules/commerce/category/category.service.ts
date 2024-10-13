@@ -52,8 +52,15 @@ export class CategoryService {
   }
 
   async deleteCategory(categoryId: number) {
-    await this.validateCategoryExist(categoryId);
-    return await this.categoryRepository.delete(categoryId);
+    const category = await this.categoryRepository.findOne({
+      where: { id: categoryId },
+      relations: {
+        products: true,
+      },
+    });
+    category.products = [];
+    await this.categoryRepository.save(category);
+    await this.categoryRepository.delete({ id: categoryId });
   }
 
   async validateCategoryNameExist(categoryDto: CreateCategoryDto) {

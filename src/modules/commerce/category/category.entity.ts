@@ -20,6 +20,8 @@ export class Category {
     onDelete: 'CASCADE',
   })
   store: Store;
-  @ManyToMany(() => Product, (product) => product.categories)
+  @ManyToMany(() => Product, (product) => product.categories, {
+    cascade: true,
+  })
   products: Array<Product>;
 }

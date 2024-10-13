@@ -31,6 +31,7 @@ export class CategoriesInStoreGuard implements CanActivate {
         HttpStatus.BAD_REQUEST,
       );
     }
+
     return true;
   }
 }

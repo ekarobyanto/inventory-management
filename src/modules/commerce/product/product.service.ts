@@ -44,6 +44,7 @@ export class ProductService {
   async getProductsByCategory(categoryId: number) {
     return await this.productRepository.find({
       where: { categories: { id: categoryId } },
+      relations: ['categories'],
     });
   }
 
@@ -73,5 +74,15 @@ export class ProductService {
 
   async deleteProduct(productId: number) {
     return await this.productRepository.delete({ id: productId });
+  }
+
+  async removeCategoryFromProducts(categoryId: number) {
+    const products = await this.getProductsByCategory(categoryId);
+    for (const product of products) {
+      product.categories = product.categories.filter(
+        (category) => category.id !== categoryId,
+      );
+      await this.productRepository.save(product);
+    }
   }
 }
