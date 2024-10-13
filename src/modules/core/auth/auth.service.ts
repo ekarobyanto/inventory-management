@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
-import { EncryptionService } from 'src/modules/encryption/encryption.service';
+import { EncryptionService } from '../../encryption/encryption.service';
 import { LoginDto } from './dto/login.dto';
 import { CreateUserDto } from '../common/dtos/create_user.dto';
 
