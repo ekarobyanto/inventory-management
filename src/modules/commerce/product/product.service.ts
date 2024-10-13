@@ -75,14 +75,4 @@ export class ProductService {
   async deleteProduct(productId: number) {
     return await this.productRepository.delete({ id: productId });
   }
-
-  async removeCategoryFromProducts(categoryId: number) {
-    const products = await this.getProductsByCategory(categoryId);
-    for (const product of products) {
-      product.categories = product.categories.filter(
-        (category) => category.id !== categoryId,
-      );
-      await this.productRepository.save(product);
-    }
-  }
 }
