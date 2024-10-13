@@ -1,73 +1,70 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Inventory Management Backend - Challange DOT Indonesia Backend Internship (Typescript)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Deskripsi
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Solusi sederhana dan efisien untuk mengelola inventori produk dalam bisnis.
 
-## Description
+## Teknologi yang Digunakan
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **TypeScript**
+- **Node.js**
+- **PostgreSQL**
+- **NestJS**
+- **TypeOrm**
 
-## Installation
+## Project Pattern
 
-```bash
-$ npm install
+Pattern yang dipilih untuk proyek ini adalah **MVC (Model, View, Controller)** yang dipadukan dengan **Domain Driven Design** (DDD). Pendekatan ini mendukung pemisahan tanggung jawab antar lapisan dan modul, sehingga memudahkan pengembangan, pemeliharaan, dan pengujian aplikasi.
+
+## How To Run
+
+- Setup .env file, put on root
+
+```
+DB_HOST=/db host/
+DB_PORT=/db port/
+DB_USER=/db user/
+DB_PASS=/db pass/
+
+JWT_SECRET= /jwt secret key/
 ```
 
-## Running the app
+- npm i
+- run in watch mode => npm run start:dev
+- build => npm run build
 
-```bash
-# development
-$ npm run start
+## Technical Requirement
 
-# watch mode
-$ npm run start:dev
+- Terdiri dari minimal 2 operasi crud yang saling berkaitan.
 
-# production mode
-$ npm run start:prod
+```
+1. Terdapat operasi crud pada tabel user yang berelasi dengan tabel store dengan konfigurasi "CASCADE" dengan relasi one-to-many
+2. Terdapat operasi crud pada tabel store dengan tabel category dan product dengan konfigurasi "CASCADE" dengan relasi :
+store - product => one-to-many
+store - category => one-to-many
+3. Terdapat operasi crud pada tabel product dan category dengan relasi many-to-many dengan tabel product_categories sebagai join tabel
 ```
 
-## Test
+- Menyimpan data menggunakan database Sql atau NoSql.
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+Data disimpan di Database PostgreSQL (Sql)
 ```
 
-## Support
+- Authentication api menggunakan JWT token.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+Semua endpoint kecuali pada module Auth sudah diproteksi dengan guard sebagai validasi JWT token
+```
 
-## Stay in touch
+- Buatkan fitur e2e testing untuk test token apinya.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+test/auth.e2e-spec.ts
+terdapat 4 test  yang berhubungan dengan test token
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+1. Hit endpoint /users tanpa menggunakan Bearer token - return 401
+2. Hit endpoint /login menggunakan credential yang terdaftar - return 200
+3. Hit endpoint /login menggunakan credential yang terdaftar - return JWT token
+4. Hit endpoint /users menggunakan Bearer token - return 200
+```
