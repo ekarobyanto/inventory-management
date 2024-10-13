@@ -15,9 +15,10 @@ export class ProductNameAlreadyExistGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const { store_id, name } = request.body;
+    console.log(name);
     const product = await this.productService.getProductByNameInStore(
       store_id,
-      name,
+      name ?? ' ',
     );
 
     if (product) {
