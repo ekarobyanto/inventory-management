@@ -1,0 +1,668 @@
+{
+	"info": {
+		"_postman_id": "dfc9029e-808c-4e06-8732-1ff0c346e956",
+		"name": "Inventory-NestJs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25059203",
+		"_collection_link": "https://bold-escape-288540.postman.co/workspace/Team-Workspace~f30c283f-1641-4cf2-8f39-b9c67fee32aa/collection/25059203-dfc9029e-808c-4e06-8732-1ff0c346e956?action=share&source=collection_link&creator=25059203"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Eka Robyanto\",\r\n    \"email\": \"robyantoeka@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Eka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Get All Stores",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Store By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Depot Godzila\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Store",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Depot Sangat sehat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Owned Stores",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/owner",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get All Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "store_id",
+									"value": "8",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"store_id\": 2,\r\n    \"name\": \"Kuah\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Makanan Kuah\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get All Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyb2JpaUBtYWlsLmNvbSIsIm5hbWUiOiJyb2JpaSIsImlhdCI6MTcyODczMTI4MH0.6XGtPCHs98FKeHXSIsRIUhgSFpRzsOTF8HAUa1VD9NY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"store_id\" : 11,\r\n    \"name\": \"Bakmi Ayam\",\r\n    \"categories\":[7] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyb2J5YW50b2VrYUBnbWFpbC5jb20iLCJuYW1lIjoiRWthIFJvYnlhbnRvIiwiaWF0IjoxNzI4Nzc0MjcwfQ.h_8Ax0zjAPAdpvim74HjB46kZiqrHtWLImab1FwI9os",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:3000"
+		}
+	]
+}
