@@ -7,7 +7,7 @@ describe('Auth (e2e)', () => {
   let app: INestApplication;
   let token: string;
   const loginCredential = {
-    email: 'your@email.com',
+    email: 'demo1@gmail.com',
     password: '123456',
   };
 
