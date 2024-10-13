@@ -63,9 +63,10 @@ export class UserService {
   }
 
   async checkIfCredentialExist(requestBody: { email?: string; name?: string }) {
-    const existingUser = await this.userRepository.findOneBy({
-      ...requestBody,
-    });
+    const existingUser = await this.userRepository.findOneBy([
+      { email: requestBody.email },
+      { name: requestBody.name },
+    ]);
 
     if (existingUser && existingUser.email === requestBody.email) {
       throw new HttpException(
